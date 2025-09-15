@@ -104,6 +104,11 @@ const addColumnModifiers = (field: DMMF.Field, column: string) => {
 		}
 	}
 
+	// Handle @updatedAt attribute - maps to Drizzle's $onUpdate functionality
+	if (field.isUpdatedAt) {
+		column = column + `.$onUpdate(() => new Date())`;
+	}
+
 	return column;
 };
 
